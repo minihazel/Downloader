@@ -1358,5 +1358,33 @@ namespace Downloader
         {
             linkvlc.ForeColor = Color.Gray;
         }
+
+        private void linkffmpeg_MouseEnter(object sender, EventArgs e)
+        {
+            linkffmpeg.ForeColor = Color.LightGray;
+        }
+
+        private void linkffmpeg_MouseLeave(object sender, EventArgs e)
+        {
+            linkffmpeg.ForeColor = Color.Gray;
+        }
+
+        private void linkytdlp_Click(object sender, EventArgs e)
+        {
+            string URL = "https://github.com/yt-dlp/yt-dlp/releases";
+            Process.Start(new ProcessStartInfo(URL) { UseShellExecute = true });
+        }
+
+        private void linkvlc_Click(object sender, EventArgs e)
+        {
+            string URL = "https://www.videolan.org/";
+            Process.Start(new ProcessStartInfo(URL) { UseShellExecute = true });
+        }
+
+        private void linkffmpeg_Click(object sender, EventArgs e)
+        {
+            string URL = "https://www.ffmpeg.org/download.html";
+            Process.Start(new ProcessStartInfo(URL) { UseShellExecute = true });
+        }
     }
 }

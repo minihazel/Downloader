@@ -76,6 +76,7 @@
             lblForceExtVideo = new Label();
             titleFetched = new Label();
             panelFirstTime = new Panel();
+            linkffmpeg = new Label();
             statusytdlp = new Label();
             btnBrowseYTDLP = new Button();
             btnAcknowledgeFirstTime = new Button();
@@ -716,6 +717,7 @@
             // 
             // panelFirstTime
             // 
+            panelFirstTime.Controls.Add(linkffmpeg);
             panelFirstTime.Controls.Add(statusytdlp);
             panelFirstTime.Controls.Add(btnBrowseYTDLP);
             panelFirstTime.Controls.Add(btnAcknowledgeFirstTime);
@@ -726,6 +728,21 @@
             panelFirstTime.Name = "panelFirstTime";
             panelFirstTime.Size = new Size(1026, 583);
             panelFirstTime.TabIndex = 3;
+            // 
+            // linkffmpeg
+            // 
+            linkffmpeg.AutoSize = true;
+            linkffmpeg.Cursor = Cursors.Hand;
+            linkffmpeg.Font = new Font("Bahnschrift Light", 8F);
+            linkffmpeg.ForeColor = Color.Gray;
+            linkffmpeg.Location = new Point(3, 521);
+            linkffmpeg.Name = "linkffmpeg";
+            linkffmpeg.Size = new Size(456, 13);
+            linkffmpeg.TabIndex = 18;
+            linkffmpeg.Text = "Download page for FFmpeg, required to convert videos; click here to open in your browser";
+            linkffmpeg.Click += linkffmpeg_Click;
+            linkffmpeg.MouseEnter += linkffmpeg_MouseEnter;
+            linkffmpeg.MouseLeave += linkffmpeg_MouseLeave;
             // 
             // statusytdlp
             // 
@@ -784,6 +801,7 @@
             linkytdlp.Size = new Size(312, 13);
             linkytdlp.TabIndex = 6;
             linkytdlp.Text = "Installation wiki for yt-dlp, click here to open in your browser";
+            linkytdlp.Click += linkytdlp_Click;
             linkytdlp.MouseEnter += linkytdlp_MouseEnter;
             linkytdlp.MouseLeave += linkytdlp_MouseLeave;
             // 
@@ -798,6 +816,7 @@
             linkvlc.Size = new Size(365, 13);
             linkvlc.TabIndex = 5;
             linkvlc.Text = "Download page for VLC Media Player, click here to open in your browser";
+            linkvlc.Click += linkvlc_Click;
             linkvlc.MouseEnter += linkvlc_MouseEnter;
             linkvlc.MouseLeave += linkvlc_MouseLeave;
             // 
@@ -896,11 +915,11 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(32, 32, 32);
             ClientSize = new Size(1050, 633);
-            Controls.Add(panelVideoSettings);
-            Controls.Add(panelDownloading);
             Controls.Add(panelFirstTime);
             Controls.Add(hubPanel);
             Controls.Add(settingsPanel);
+            Controls.Add(panelVideoSettings);
+            Controls.Add(panelDownloading);
             Font = new Font("Bahnschrift Light", 11F);
             ForeColor = Color.LightGray;
             FormBorderStyle = FormBorderStyle.FixedSingle;
@@ -992,5 +1011,6 @@
         private TextBox textytdlp;
         private ToolTip pathTooltip;
         private Label textPlaceholderLink;
+        private Label linkffmpeg;
     }
 }
