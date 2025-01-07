@@ -56,6 +56,7 @@
             chkToggleSave = new CheckBox();
             titleSettings = new Label();
             panelVideoSettings = new Panel();
+            btnReturnToMainPage = new Button();
             textPlaceholderLink = new Label();
             divider4 = new Panel();
             chkShowInfo = new CheckBox();
@@ -92,6 +93,7 @@
             dataOutput = new RichTextBox();
             statusDownloading = new Label();
             pathTooltip = new ToolTip(components);
+            btnCancelDownload = new Button();
             hubPanel.SuspendLayout();
             pathbox.SuspendLayout();
             urlbox.SuspendLayout();
@@ -438,6 +440,7 @@
             // 
             // panelVideoSettings
             // 
+            panelVideoSettings.Controls.Add(btnReturnToMainPage);
             panelVideoSettings.Controls.Add(textPlaceholderLink);
             panelVideoSettings.Controls.Add(divider4);
             panelVideoSettings.Controls.Add(chkShowInfo);
@@ -461,6 +464,22 @@
             panelVideoSettings.Name = "panelVideoSettings";
             panelVideoSettings.Size = new Size(1026, 583);
             panelVideoSettings.TabIndex = 2;
+            // 
+            // btnReturnToMainPage
+            // 
+            btnReturnToMainPage.BackColor = Color.FromArgb(38, 40, 42);
+            btnReturnToMainPage.Cursor = Cursors.Hand;
+            btnReturnToMainPage.FlatAppearance.BorderColor = SystemColors.WindowFrame;
+            btnReturnToMainPage.FlatStyle = FlatStyle.Flat;
+            btnReturnToMainPage.Font = new Font("Bahnschrift Light", 10F);
+            btnReturnToMainPage.ForeColor = Color.DarkGray;
+            btnReturnToMainPage.Location = new Point(840, 19);
+            btnReturnToMainPage.Name = "btnReturnToMainPage";
+            btnReturnToMainPage.Size = new Size(183, 47);
+            btnReturnToMainPage.TabIndex = 54;
+            btnReturnToMainPage.Text = "↩️  Back to search";
+            btnReturnToMainPage.UseVisualStyleBackColor = false;
+            btnReturnToMainPage.Click += btnReturnToMainPage_Click;
             // 
             // textPlaceholderLink
             // 
@@ -842,6 +861,7 @@
             // 
             // panelInfo
             // 
+            panelInfo.Controls.Add(btnCancelDownload);
             panelInfo.Controls.Add(infoExportFolder);
             panelInfo.Controls.Add(infoFileName);
             panelInfo.Controls.Add(infoTimePassed);
@@ -855,7 +875,7 @@
             infoExportFolder.Font = new Font("Bahnschrift", 12F);
             infoExportFolder.Location = new Point(3, 129);
             infoExportFolder.Name = "infoExportFolder";
-            infoExportFolder.Size = new Size(396, 60);
+            infoExportFolder.Size = new Size(205, 60);
             infoExportFolder.TabIndex = 6;
             infoExportFolder.Text = "Export folder\r\n> Placeholder";
             // 
@@ -864,7 +884,7 @@
             infoFileName.Font = new Font("Bahnschrift", 12F);
             infoFileName.Location = new Point(3, 66);
             infoFileName.Name = "infoFileName";
-            infoFileName.Size = new Size(396, 60);
+            infoFileName.Size = new Size(205, 60);
             infoFileName.TabIndex = 5;
             infoFileName.Text = "File name\r\n> Placeholder.webm";
             // 
@@ -873,7 +893,7 @@
             infoTimePassed.Font = new Font("Bahnschrift", 12F);
             infoTimePassed.Location = new Point(3, 3);
             infoTimePassed.Name = "infoTimePassed";
-            infoTimePassed.Size = new Size(396, 60);
+            infoTimePassed.Size = new Size(205, 60);
             infoTimePassed.TabIndex = 4;
             infoTimePassed.Text = "Time passed\r\n00:00";
             // 
@@ -909,17 +929,33 @@
             statusDownloading.Text = "Downloading content...";
             statusDownloading.TextAlign = ContentAlignment.MiddleCenter;
             // 
+            // btnCancelDownload
+            // 
+            btnCancelDownload.BackColor = Color.FromArgb(38, 40, 42);
+            btnCancelDownload.Cursor = Cursors.Hand;
+            btnCancelDownload.FlatAppearance.BorderColor = SystemColors.WindowFrame;
+            btnCancelDownload.FlatStyle = FlatStyle.Flat;
+            btnCancelDownload.Font = new Font("Bahnschrift Light", 10F);
+            btnCancelDownload.ForeColor = Color.DarkGray;
+            btnCancelDownload.Location = new Point(219, 0);
+            btnCancelDownload.Name = "btnCancelDownload";
+            btnCancelDownload.Size = new Size(180, 47);
+            btnCancelDownload.TabIndex = 55;
+            btnCancelDownload.Text = "❌  Cancel download";
+            btnCancelDownload.UseVisualStyleBackColor = false;
+            btnCancelDownload.Click += btnCancelDownload_Click;
+            // 
             // mainForm
             // 
             AutoScaleDimensions = new SizeF(8F, 18F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(32, 32, 32);
             ClientSize = new Size(1050, 633);
+            Controls.Add(panelDownloading);
             Controls.Add(panelFirstTime);
             Controls.Add(hubPanel);
             Controls.Add(settingsPanel);
             Controls.Add(panelVideoSettings);
-            Controls.Add(panelDownloading);
             Font = new Font("Bahnschrift Light", 11F);
             ForeColor = Color.LightGray;
             FormBorderStyle = FormBorderStyle.FixedSingle;
@@ -1012,5 +1048,7 @@
         private ToolTip pathTooltip;
         private Label textPlaceholderLink;
         private Label linkffmpeg;
+        private Button btnReturnToMainPage;
+        private Button btnCancelDownload;
     }
 }

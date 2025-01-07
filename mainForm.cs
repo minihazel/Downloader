@@ -19,7 +19,7 @@ namespace Downloader
         bool hasBeenMerged = false;
         private DateTime startedTime;
 
-        Process downloadProcess;
+        Process? downloadProcess;
 
         public List<string> parameters = new List<string>();
         public List<string> framerates = new List<string>();
@@ -416,27 +416,28 @@ namespace Downloader
 
             startedTime = DateTime.Now;
             System.Windows.Forms.Timer dt = new System.Windows.Forms.Timer();
+
             dt.Interval = 1000;
             dt.Tick += new EventHandler(OnTimerTick);
             dt.Start();
 
             await Task.Run(() =>
             {
-                using (Process p = new Process())
+                using (downloadProcess = new Process())
                 {
-                    p.StartInfo.WorkingDirectory = Properties.Settings.Default.ytdlpFolder.ToString();
-                    p.StartInfo.FileName = "cmd.exe";
-                    p.StartInfo.Arguments = "/C " + script + " " + url;
-                    p.StartInfo.RedirectStandardOutput = true;
-                    p.StartInfo.RedirectStandardError = true;
-                    p.StartInfo.UseShellExecute = false;
-                    p.StartInfo.CreateNoWindow = true;
-                    p.Start();
+                    downloadProcess.StartInfo.WorkingDirectory = Properties.Settings.Default.ytdlpFolder.ToString();
+                    downloadProcess.StartInfo.FileName = "cmd.exe";
+                    downloadProcess.StartInfo.Arguments = "/C " + script + " " + url;
+                    downloadProcess.StartInfo.RedirectStandardOutput = true;
+                    downloadProcess.StartInfo.RedirectStandardError = true;
+                    downloadProcess.StartInfo.UseShellExecute = false;
+                    downloadProcess.StartInfo.CreateNoWindow = true;
+                    downloadProcess.Start();
 
                     StringBuilder output = new StringBuilder();
-                    while (!p.StandardOutput.EndOfStream)
+                    while (!downloadProcess.StandardOutput.EndOfStream)
                     {
-                        string? line = p.StandardOutput.ReadLine();
+                        string? line = downloadProcess.StandardOutput.ReadLine();
                         output.AppendLine(line);
 
                         if (line != null)
@@ -513,8 +514,8 @@ namespace Downloader
                                     this.Invoke((MethodInvoker)delegate
                                     {
                                         dataOutput.Clear();
-                                        p.Dispose();
-                                        p.Kill();
+                                        downloadProcess.Dispose();
+                                        downloadProcess.Kill();
 
                                         dt.Stop();
                                         dt.Enabled = false;
@@ -552,7 +553,7 @@ namespace Downloader
                         }
                     }
 
-                    p.WaitForExitAsync();
+                    downloadProcess.WaitForExitAsync();
                     if (InvokeRequired)
                     {
                         Invoke(new Action(() =>
@@ -594,9 +595,11 @@ namespace Downloader
                     }
                 }
             });
+
             await Task.Delay(1500);
             this.Invoke((MethodInvoker)delegate
             {
+                terminateDownload();
                 dataOutput.Clear();
 
                 dt.Stop();
@@ -837,6 +840,27 @@ namespace Downloader
             string pattern = @"^(https?://)?(www\.)?(youtube\.com|youtu\.be)/(watch\?v=[\w-]{11}|[\w-]{11})";
             Regex regex = new Regex(pattern, RegexOptions.IgnoreCase);
             return regex.IsMatch(url);
+        }
+
+        private void terminateDownload()
+        {
+            if (downloadProcess != null && !downloadProcess.HasExited)
+            {
+                try
+                {
+                    downloadProcess.Kill();
+                    downloadProcess.WaitForExit();
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("Error terminating process: " + ex.Message.ToString());
+                }
+                finally
+                {
+                    downloadProcess.Dispose();
+                    downloadProcess = null;
+                }
+            }
         }
 
         // backend events
@@ -1286,6 +1310,23 @@ namespace Downloader
                     textytdlp.Text = ytdlp;
                 }
             }
+        }
+
+        private void btnReturnToMainPage_Click(object sender, EventArgs e)
+        {
+            hubPanel.BringToFront();
+            destinationurl.Clear();
+
+            hasListBeenReversed = false;
+            hasDropdownBeenReversed = false;
+            hasBeenMerged = false;
+
+            lblURL.Select();
+        }
+
+        private void btnCancelDownload_Click(object sender, EventArgs e)
+        {
+            terminateDownload();
         }
 
         private void textytdlp_MouseDown(object sender, MouseEventArgs e)
