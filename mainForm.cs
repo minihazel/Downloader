@@ -11,7 +11,7 @@ namespace Downloader
     public partial class mainForm : Form
     {
         public string currentEnv = Environment.CurrentDirectory;
-        public string cookiesFile = null;
+        public string? cookiesFile = null;
 
         public bool isExtended = false;
         bool hasListBeenReversed = false;
