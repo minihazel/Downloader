@@ -86,6 +86,7 @@
             lblFirstTime = new Label();
             panelDownloading = new Panel();
             panelInfo = new Panel();
+            btnCancelDownload = new Button();
             infoExportFolder = new Label();
             infoFileName = new Label();
             infoTimePassed = new Label();
@@ -93,7 +94,6 @@
             dataOutput = new RichTextBox();
             statusDownloading = new Label();
             pathTooltip = new ToolTip(components);
-            btnCancelDownload = new Button();
             hubPanel.SuspendLayout();
             pathbox.SuspendLayout();
             urlbox.SuspendLayout();
@@ -870,6 +870,22 @@
             panelInfo.Size = new Size(402, 221);
             panelInfo.TabIndex = 22;
             // 
+            // btnCancelDownload
+            // 
+            btnCancelDownload.BackColor = Color.FromArgb(38, 40, 42);
+            btnCancelDownload.Cursor = Cursors.Hand;
+            btnCancelDownload.FlatAppearance.BorderColor = SystemColors.WindowFrame;
+            btnCancelDownload.FlatStyle = FlatStyle.Flat;
+            btnCancelDownload.Font = new Font("Bahnschrift Light", 10F);
+            btnCancelDownload.ForeColor = Color.DarkGray;
+            btnCancelDownload.Location = new Point(219, 0);
+            btnCancelDownload.Name = "btnCancelDownload";
+            btnCancelDownload.Size = new Size(180, 47);
+            btnCancelDownload.TabIndex = 55;
+            btnCancelDownload.Text = "❌  Cancel download";
+            btnCancelDownload.UseVisualStyleBackColor = false;
+            btnCancelDownload.Click += btnCancelDownload_Click;
+            // 
             // infoExportFolder
             // 
             infoExportFolder.Font = new Font("Bahnschrift", 12F);
@@ -929,33 +945,17 @@
             statusDownloading.Text = "Downloading content...";
             statusDownloading.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // btnCancelDownload
-            // 
-            btnCancelDownload.BackColor = Color.FromArgb(38, 40, 42);
-            btnCancelDownload.Cursor = Cursors.Hand;
-            btnCancelDownload.FlatAppearance.BorderColor = SystemColors.WindowFrame;
-            btnCancelDownload.FlatStyle = FlatStyle.Flat;
-            btnCancelDownload.Font = new Font("Bahnschrift Light", 10F);
-            btnCancelDownload.ForeColor = Color.DarkGray;
-            btnCancelDownload.Location = new Point(219, 0);
-            btnCancelDownload.Name = "btnCancelDownload";
-            btnCancelDownload.Size = new Size(180, 47);
-            btnCancelDownload.TabIndex = 55;
-            btnCancelDownload.Text = "❌  Cancel download";
-            btnCancelDownload.UseVisualStyleBackColor = false;
-            btnCancelDownload.Click += btnCancelDownload_Click;
-            // 
             // mainForm
             // 
             AutoScaleDimensions = new SizeF(8F, 18F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(32, 32, 32);
             ClientSize = new Size(1050, 633);
+            Controls.Add(panelVideoSettings);
             Controls.Add(panelDownloading);
             Controls.Add(panelFirstTime);
             Controls.Add(hubPanel);
             Controls.Add(settingsPanel);
-            Controls.Add(panelVideoSettings);
             Font = new Font("Bahnschrift Light", 11F);
             ForeColor = Color.LightGray;
             FormBorderStyle = FormBorderStyle.FixedSingle;
